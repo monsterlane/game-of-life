@@ -1,0 +1,100 @@
+
+html, body {
+	width:100%;
+	height:100%;
+	color:#33333d;
+}
+
+div.vignette {
+	background-image:url(../img/vignette.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+	opacity:0.6;
+}
+
+span.role-icon {
+	display:inline-block;
+	vertical-align:middle;
+	width:32px;
+	height:32px;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+	span.role-icon + span.role-label {
+		margin-left:1ex;
+	}
+
+span.icon-github {
+	background-image:url(../img/github.png);
+}
+
+span.icon-twitter {
+	background-image:url(../img/twitter.png);
+}
+
+ul.toolbar {
+	display:inline-block;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+	ul.toolbar > li {
+		display:inline-block;
+		vertical-align:middle;
+	}
+		ul.toolbar > li + li {
+			margin-left:1ex;
+		}
+
+article {
+	position:relative;
+	display:table;
+	width:100%;
+	height:100%;
+}
+	article > section {
+		display:table-cell;
+		vertical-align:middle;
+	}
+		article > section > header {
+			position:relative;
+			z-index:10;
+		}
+			article > section > header > hgroup > * {
+				font-family:'Italiana', serif;
+				font-size:1.6em;
+				text-align:center;
+				text-transform:lowercase;
+				letter-spacing:0.25ex;
+				margin:0;
+			}
+
+			article > section > header > hgroup > h1 {
+				font-size:5em;
+			}
+
+		article > section > nav {
+			position:relative;
+			z-index:11;
+			text-align:center;
+			margin-top:1em;
+		}
+			article > section > nav > ul.toolbar > li > a > span.role-label {
+				display:none;
+			}
+
+		article > section > canvas {
+			position:absolute;
+			top:0; left:0;
+			z-index:5;
+			width:100%;
+			height:100%;
+		}
+
+		article > section > div.vignette {
+			position:absolute;
+			top:0; left:0;
+			z-index:6;
+			width:100%;
+			height:100%;
+		}
