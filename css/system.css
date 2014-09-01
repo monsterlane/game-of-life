@@ -62,7 +62,6 @@ article {
 		}
 			article > section > header > hgroup > * {
 				font-family:'Italiana', serif;
-				font-size:1.6em;
 				text-align:center;
 				text-transform:lowercase;
 				letter-spacing:0.25ex;
@@ -71,6 +70,11 @@ article {
 
 			article > section > header > hgroup > h1 {
 				font-size:5em;
+			}
+
+			article > section > header > hgroup > h2 {
+				font-size:1.2em;
+				text-transform:uppercase;
 			}
 
 		article > section > nav {
