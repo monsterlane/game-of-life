@@ -18,7 +18,7 @@ define( [ 'cell', 'class' ], function( aCell ) {
 				verbose: true,
 				width: document.documentElement.clientWidth,
 				height: document.documentElement.clientHeight,
-				tickRate: parseInt( 1000 / 5, 10 ),
+				tickRate: parseInt( 1000 / 10, 10 ),
 				lastTick: Date.now( ),
 				paused: false,
 				pauseRate: 200,
@@ -346,9 +346,6 @@ define( [ 'cell', 'class' ], function( aCell ) {
 					cell = this.cells[ i ][ j ];
 
 					if ( cell.dirty === true ) {
-						w = this.cell.width - this.cell.padding;
-						h = this.cell.height - this.cell.padding;
-
 						this.bufferContext.save( );
 	        			this.bufferContext.translate( cell.x, cell.y );
 						this.bufferContext.fillStyle = this.cell[ cell.state ];
@@ -356,6 +353,9 @@ define( [ 'cell', 'class' ], function( aCell ) {
 						if ( cell.state === 'alive' ) {
 							this.bufferContext.globalAlpha = '0.' + ( Math.floor( Math.random( ) * 3 ) + 1 );
 						}
+
+						w = this.cell.width - this.cell.padding;
+						h = this.cell.height - this.cell.padding;
 
 						this.bufferContext.clearRect( this.cell.padding, this.cell.padding, w, h );
 						this.bufferContext.fillRect( this.cell.padding, this.cell.padding, w, h );
