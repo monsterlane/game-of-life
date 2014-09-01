@@ -5,6 +5,13 @@ html, body {
 	color:#243d46;
 }
 
+body {
+	cursor:move; cursor:-webkit-grab; cursor:-moz-grab; cursor:grab;
+}
+	body.touching {
+		cursor:-webkit-grabbing; cursor:-moz-grabbing; cursor:grabbing;
+	}
+
 div.vignette {
 	background-image:url(../img/vignette.png);
 	background-repeat:no-repeat;
@@ -54,18 +61,23 @@ article {
 	article > section {
 		display:table-cell;
 		vertical-align:middle;
-		cursor:all-scroll;
+		text-align:center;
+		overflow:hidden;
 	}
 		article > section > header {
 			position:relative;
+			display:inline-block;
 			z-index:10;
 		}
 			article > section > header > hgroup > * {
 				font-family:'Italiana', serif;
+				font-weight:normal;
 				text-align:center;
 				text-transform:lowercase;
 				letter-spacing:0.25ex;
 				margin:0;
+				-webkit-text-shadow: 0 1px 0 rgba(255,255,255,0.7); -moz-text-shadow: 0 1px 0 rgba(255,255,255,0.7); text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+				-webkit-user-select:none; -moz-user-select:none; user-select:none;
 			}
 
 			article > section > header > hgroup > h1 {
@@ -73,14 +85,21 @@ article {
 			}
 
 			article > section > header > hgroup > h2 {
-				font-size:1.2em;
+				font-size:1.5em;
 				text-transform:uppercase;
 			}
+
+			article > section > header > hgroup > p {
+				margin:1em 0;
+				-webkit-text-shadow: 0 1px 0 rgba(255,255,255,0.7); -moz-text-shadow: 0 1px 0 rgba(255,255,255,0.7); text-shadow: 0 1px 0 rgba(255,255,255,0.7);
+			}
+				article > section > header > hgroup > p + p {
+					margin:-1em 0 0 0;
+				}
 
 		article > section > nav {
 			position:relative;
 			z-index:11;
-			text-align:center;
 			margin-top:1em;
 		}
 			article > section > nav > ul.toolbar > li > a > span.role-label {
@@ -110,5 +129,9 @@ article {
 
 	article > section > header > hgroup > h2 {
 		font-size:1em;
+	}
+
+	article > section > header > hgroup > p + p {
+		display:none;
 	}
 }

@@ -30,6 +30,7 @@ define( [ 'cell', 'class' ], function( aCell ) {
 			this.verbose( 'booting' );
 
 			this.display = document.querySelector( 'canvas' );
+			this.display.className = '';
 			this.display.width = this.engine.width;
 			this.display.height = this.engine.height;
 			this.displayContext = this.display.getContext( '2d' );
@@ -49,6 +50,18 @@ define( [ 'cell', 'class' ], function( aCell ) {
 			this.bufferContext.mozImageSmoothingEnabled = false;
 			this.bufferContext.webkitImageSmoothingEnabled = false;
 
+			this.header = document.querySelector( 'header' );
+			this.nav = document.querySelector( 'nav' );
+
+			this.x = 0;
+			this.y = 0;
+
+			this.maxX = 10;
+			this.maxY = 10;
+
+			this.lastX = 0;
+			this.lastY = 0;
+
 			this.cells = [ ];
 
 			this.cell = {
@@ -58,7 +71,7 @@ define( [ 'cell', 'class' ], function( aCell ) {
 				alive: '#243d46',
 				dead: '#eeeeee',
 				maxOpacity: 3,
-				seedValue: 0.3
+				seedValue: 0.6
 			};
 
 			this.bindEventListeners( );
@@ -98,8 +111,17 @@ define( [ 'cell', 'class' ], function( aCell ) {
 				}
 			});
 
+			window.addEventListener( 'mousedown', function( ) {
+				document.body.className = 'touching';
+			});
+
 			window.addEventListener( 'mousemove', function( aEvent ) {
 				self.createLife( aEvent );
+				self.parallax( aEvent );
+			});
+
+			window.addEventListener( 'mouseup', function( ) {
+				document.body.className = '';
 			});
 		},
 
@@ -161,6 +183,50 @@ define( [ 'cell', 'class' ], function( aCell ) {
 			this.bufferContext.translate( 0, 0 );
 
 			this.generateCells( );
+		},
+
+		/**
+		 * Method: parallax
+		 * @param {DOMevent} aEvent
+		 */
+
+		parallax: function( aEvent ) {
+			var x = aEvent.clientX,
+				y = aEvent.clientY;
+
+			if ( x > this.lastX ) {
+				if ( this.x < this.maxX ) {
+					this.x += 1;
+				}
+			}
+			else if ( x < this.lastX ) {
+				if ( this.x > 0 ) {
+					this.x -= 1;
+				}
+			}
+
+			if ( y > this.lastY ) {
+				if ( this.y < this.maxY ) {
+					this.y += 1;
+				}
+			}
+			else if ( y < this.lastY ) {
+				if ( this.y > 0 ) {
+					this.y -= 1;
+				}
+			}
+
+			this.lastX = x;
+			this.lastY = y;
+
+			this.header.style.top = this.y + 'px';
+			this.header.style.left = this.x + 'px';
+
+			this.nav.style.top = this.y + 'px';
+			this.nav.style.left = this.x + 'px';
+
+			this.display.style.top = -this.y + 'px';
+			this.display.style.left = -this.x + 'px';
 		},
 
 		/**
