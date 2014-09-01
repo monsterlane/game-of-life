@@ -95,6 +95,10 @@ define( [ 'cell', 'class' ], function( aCell ) {
 					self.pause( );
 				}
 			});
+
+			window.addEventListener( 'mousemove', function( aEvent ) {
+				self.createLife( aEvent );
+			});
 		},
 
 		/**
@@ -190,10 +194,24 @@ define( [ 'cell', 'class' ], function( aCell ) {
 		},
 
 		/**
-		 * Method: createLife
+		 * createLife
+		 * @param {DOMevent} aEvent
 		 */
 
-		createLife: function( ) {
+		createLife: function( aEvent ) {
+			var x, y;
+
+			x = parseInt( aEvent.clientX / this.cell.width, 10 );
+			y = parseInt( aEvent.clientY / this.cell.height, 10 );
+
+			this.cells[ y ][ x ].state = 'alive';
+		},
+
+		/**
+		 * Method: createSeed
+		 */
+
+		createSeed: function( ) {
 			var x, y, cells,
 				i, len;
 
@@ -252,7 +270,7 @@ define( [ 'cell', 'class' ], function( aCell ) {
 
 			for ( i = 0, len1 = this.cells.length; i < len1; i++ ) {
 				for ( j = 0, len2 = this.cells[ i ].length; j < len2; j++ ) {
-					if ( Math.log( Math.random( ) * 10 ) < -0.6 ) {
+					if ( Math.log( Math.random( ) * 10 ) < -0.5 ) {
 						this.cells[ i ][ j ].state = 'alive';
 					}
 				}

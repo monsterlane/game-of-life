@@ -21,14 +21,6 @@ define( [ 'class' ], function( ) {
 			this.y = y;
 
 			this.state = s;
-		},
-
-		/**
-		 * Method: clone
-		 */
-
-		clone: function( ) {
-			return new Cell( this.x, this.y, this.state );
 		}
 	});
 
