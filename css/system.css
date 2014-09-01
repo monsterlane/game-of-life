@@ -2,14 +2,13 @@
 html, body {
 	width:100%;
 	height:100%;
-	color:#33333d;
+	color:#243d46;
 }
 
 div.vignette {
 	background-image:url(../img/vignette.png);
 	background-repeat:no-repeat;
 	background-size:cover;
-	opacity:0.6;
 }
 
 span.role-icon {
@@ -55,6 +54,7 @@ article {
 	article > section {
 		display:table-cell;
 		vertical-align:middle;
+		cursor:all-scroll;
 	}
 		article > section > header {
 			position:relative;

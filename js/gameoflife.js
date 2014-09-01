@@ -55,8 +55,8 @@ define( [ 'cell', 'class' ], function( aCell ) {
 				width: 8,
 				height: 8,
 				padding: 2,
-				alive: '000',
-				dead: '#eee',
+				alive: '#243d46',
+				dead: '#eeeeee',
 				maxOpacity: 3,
 				seedValue: 0.3
 			};
