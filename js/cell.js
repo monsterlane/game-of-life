@@ -21,6 +21,20 @@ define( [ 'class' ], function( ) {
 			this.y = y;
 
 			this.state = s;
+			this.dirty = true;
+		},
+
+		/**
+		 * Method: setState
+		 * @param {String} aState
+		 */
+
+		setState: function( aState ) {
+			if ( this.state !== aState ) {
+				this.dirty = true;
+			}
+
+			this.state = aState;
 		}
 	});
 

@@ -56,7 +56,9 @@ define( [ 'cell', 'class' ], function( aCell ) {
 				height: 8,
 				padding: 2,
 				alive: '000',
-				dead: '#eee'
+				dead: '#eee',
+				maxOpacity: 3,
+				seedValue: 0.3
 			};
 
 			this.bindEventListeners( );
@@ -204,7 +206,7 @@ define( [ 'cell', 'class' ], function( aCell ) {
 			x = parseInt( aEvent.clientX / this.cell.width, 10 );
 			y = parseInt( aEvent.clientY / this.cell.height, 10 );
 
-			this.cells[ y ][ x ].state = 'alive';
+			this.cells[ y ][ x ].setState( 'alive' );
 		},
 
 		/**
@@ -257,7 +259,7 @@ define( [ 'cell', 'class' ], function( aCell ) {
 			];
 
 			for ( i = 0, len = cells.length; i < len; i++ ) {
-				this.cells[ cells[ i ].y ][ cells[ i ].x ].state = 'alive';
+				this.cells[ cells[ i ].y ][ cells[ i ].x ].setState( 'alive' );
 			}
 		},
 
@@ -270,8 +272,8 @@ define( [ 'cell', 'class' ], function( aCell ) {
 
 			for ( i = 0, len1 = this.cells.length; i < len1; i++ ) {
 				for ( j = 0, len2 = this.cells[ i ].length; j < len2; j++ ) {
-					if ( Math.log( Math.random( ) * 10 ) < -0.5 ) {
-						this.cells[ i ][ j ].state = 'alive';
+					if ( Math.log( Math.random( ) * 10 ) < -this.cell.seedValue ) {
+						this.cells[ i ][ j ].setState( 'alive' );
 					}
 				}
 			}
@@ -321,11 +323,11 @@ define( [ 'cell', 'class' ], function( aCell ) {
 
 					if ( cell.state === 'alive' ) {
 						if ( alive < 2 || alive > 3 ) {
-							cell.state = 'dead';
+							cell.setState( 'dead' );
 						}
 					}
 					else if ( alive === 3 ) {
-						cell.state = 'alive';
+						cell.setState( 'alive' );
 					}
 				}
 			}
@@ -343,20 +345,24 @@ define( [ 'cell', 'class' ], function( aCell ) {
 				for ( j = 0, len2 = this.cells[ i ].length; j < len2; j++ ) {
 					cell = this.cells[ i ][ j ];
 
-					w = this.cell.width - this.cell.padding;
-					h = this.cell.height - this.cell.padding;
+					if ( cell.dirty === true ) {
+						w = this.cell.width - this.cell.padding;
+						h = this.cell.height - this.cell.padding;
 
-					this.bufferContext.save( );
-        			this.bufferContext.translate( cell.x, cell.y );
-					this.bufferContext.fillStyle = this.cell[ cell.state ];
+						this.bufferContext.save( );
+	        			this.bufferContext.translate( cell.x, cell.y );
+						this.bufferContext.fillStyle = this.cell[ cell.state ];
 
-					if ( cell.state === 'alive' ) {
-						this.bufferContext.globalAlpha = '0.' + ( Math.floor( Math.random( ) * 3 ) + 1 );
+						if ( cell.state === 'alive' ) {
+							this.bufferContext.globalAlpha = '0.' + ( Math.floor( Math.random( ) * 3 ) + 1 );
+						}
+
+						this.bufferContext.clearRect( this.cell.padding, this.cell.padding, w, h );
+						this.bufferContext.fillRect( this.cell.padding, this.cell.padding, w, h );
+						this.bufferContext.restore( );
+
+						cell.dirty = false;
 					}
-
-					this.bufferContext.clearRect( this.cell.padding, this.cell.padding, w, h );
-					this.bufferContext.fillRect( this.cell.padding, this.cell.padding, w, h );
-					this.bufferContext.restore( );
 				}
 			}
 
