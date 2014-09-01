@@ -12,6 +12,15 @@ body {
 		cursor:-webkit-grabbing; cursor:-moz-grabbing; cursor:grabbing;
 	}
 
+a:link,
+a:visited,
+a:active {
+	color:#243d46;
+}
+	a:hover {
+		font-style:italic;
+	}
+
 div.vignette {
 	background-image:url(../img/vignette.png);
 	background-repeat:no-repeat;
